@@ -1,6 +1,6 @@
 # PandasFlow 🐼
 
-A multi-stage, LLM-powered workflow for advanced analysis and question answering over tabular data using Pandas and LlamaIndex. Instead of relying on direct code execution, which can be error-prone and require a separate sandbox, the system exposes controlled data manipulation tools to the agent for safe and reliable operations.
+A multi-stage, LLM-powered workflow for advanced analysis and question answering over tabular data using Pandas and LlamaIndex. Instead of relying on direct code execution, which can be error-prone and require a separate sandbox, the system exposes controlled data manipulation tools to the agent for safe and reliable operations. Since we are not ingesting the csv data directly into the LLM, we can scale this system to arbitraily large datasets.
 
 ---
 
@@ -86,7 +86,7 @@ python main.py
 This runs the agent on a sample query and CSV file. See `main.py` for a runnable example:
 ```python
 async def main():
-    w = PandasAgent(timeout=60, verbose=True)
+    w = PandasFlow(timeout=60, verbose=True)
     result = await w.run(query="what is the correlation between BMI and expenses?", file_name="data/insurance.csv")
     print(str(result))
 ```
