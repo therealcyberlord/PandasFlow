@@ -41,7 +41,7 @@ class SetupEvent(Event):
 class HasAnswerEvent(Event):
     query: str
 
-class AnswerEvent(Event):
+class DecideColumnEvent(Event):
     query: str
 
 class HasAnswerResponse(BaseModel):
@@ -102,7 +102,7 @@ class PandasFlow(Workflow):
         return HasAnswerEvent(query=query)
 
     @step
-    async def decide_columns(self, ctx: Context, ev: HasAnswerEvent) -> AnswerEvent: 
+    async def decide_columns(self, ctx: Context, ev: HasAnswerEvent) -> DecideColumnEvent: 
         query = ev.query
         df = await ctx.store.get("df", default=None)
         metadata = await ctx.store.get("metadata", default=None)
@@ -126,10 +126,10 @@ class PandasFlow(Workflow):
         await ctx.store.set("df", filtered_df)
         filtered_metadata = csv_to_metadata_json(filtered_df)
         await ctx.store.set("metadata", filtered_metadata)
-        return AnswerEvent(query=query)
+        return DecideColumnEvent(query=query)
     
     @step
-    async def call_answer_agent(self, ctx: Context, ev: AnswerEvent) -> StopEvent:  
+    async def call_answer_agent(self, ctx: Context, ev: DecideColumnEvent) -> StopEvent:  
         query = ev.query
         df = await ctx.store.get("df", default=None)
         metadata = await ctx.store.get("metadata", default=None)

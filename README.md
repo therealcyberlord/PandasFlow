@@ -19,7 +19,7 @@ flowchart TD
     step__done["_done"]:::stepStyle
     event_StopEvent(["StopEvent"]):::stopEventStyle
     step_call_answer_agent["call_answer_agent"]:::stepStyle
-    event_AnswerEvent(["AnswerEvent"]):::defaultEventStyle
+    event_DecideColumnEvent(["DecideColumnEvent"]):::defaultEventStyle
     step_decide_columns["decide_columns"]:::stepStyle
     event_HasAnswerEvent(["HasAnswerEvent"]):::defaultEventStyle
     step_has_answer["has_answer"]:::stepStyle
@@ -28,8 +28,8 @@ flowchart TD
     step_setup["setup"]:::stepStyle
     event_StopEvent --> step__done
     step_call_answer_agent --> event_StopEvent
-    event_AnswerEvent --> step_call_answer_agent
-    step_decide_columns --> event_AnswerEvent
+    event_DecideColumnEvent --> step_call_answer_agent
+    step_decide_columns --> event_DecideColumnEvent
     event_HasAnswerEvent --> step_decide_columns
     step_has_answer --> event_SetupEvent
     step_has_answer --> event_HasAnswerEvent
@@ -42,6 +42,14 @@ flowchart TD
     classDef startEventStyle fill:#E27AFF,color:#000000
     classDef stopEventStyle fill:#FFA07A,color:#000000
     classDef defaultEventStyle fill:#90EE90,color:#000000
+    classDef reactAgentStyle fill:#E27AFF,color:#000000
+    classDef codeActAgentStyle fill:#66ccff,color:#000000
+    classDef defaultAgentStyle fill:#90EE90,color:#000000
+    classDef toolStyle fill:#ff9966,color:#000000
+    classDef workflowBaseStyle fill:#90EE90,color:#000000
+    classDef workflowAgentStyle fill:#66ccff,color:#000000
+    classDef workflowToolStyle fill:#ff9966,color:#000000
+    classDef workflowHandoffStyle fill:#E27AFF,color:#000000
 ```
 
 This diagram visualizes the agent's event-driven workflow:
