@@ -64,7 +64,7 @@ This diagram visualizes the agent's event-driven workflow:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/therealcyberlord/PandasFlow.git
-   cd pandas-llamaindex-agent
+   cd PandasFlow
    ```
 2. **Install [uv](https://github.com/astral-sh/uv):**
    ```bash
