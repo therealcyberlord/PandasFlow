@@ -26,7 +26,7 @@ Available Tools:
 - filter_column(col_name, filter_values): Filters rows based on one or more conditions applied to a specific column. For efficiency, pass multiple filter values as a list rather than making multiple calls. 
   The filtered dataframe is saved in the context instead of being returned directly. Each time you call filter_column, the filter is applied on top of the previously filtered dataframe.
   If the user specifies an upper and lower bound (e.g., "between 15 and 30"), apply them as two sequential filters: first >= 15, then <= 30.
-- aggregate(col_name, agg_method): Aggregates values in a column using a statistical method (e.g., mean, sum, count).
+- aggregate(col_name, agg_method): Aggregates values in a column using a statistical method (e.g., mean, sum, count). Note that you can only use mean, sum, min, max on numeric columns, count is for any column type.
 
 Instructions:
 1. Review the metadata carefully to understand the data structure.

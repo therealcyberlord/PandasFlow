@@ -68,9 +68,17 @@ async def filter_column(ctx: Context, col_name: str, filter_values: FilterList):
 
 async def aggregate(ctx: Context, col_name: str, agg_method: Literal["sum", "mean", "min", "max", "count"]) -> str:
     "Useful for aggregating a column based on an aggregation method, available methods are sum, mean, min, max, count"
+    "You can only use mean, sum, min, max on numeric columns, count is for any column type"
     df = await ctx.store.get("df", default=None)
     if df is None:
         raise ValueError("df is not available in the context")
+
+    if agg_method == "count":
+        return str(df[col_name].value_counts())
+
+    if not pd.api.types.is_numeric_dtype(df[col_name]):
+        raise ValueError("You are applying an aggregation method on a non-numeric column, this is not valid")
+
     agg_func = None 
     if agg_method == "sum":
         agg_func = np.sum
@@ -80,8 +88,7 @@ async def aggregate(ctx: Context, col_name: str, agg_method: Literal["sum", "mea
         agg_func = np.min
     elif agg_method == "max":
         agg_func = np.max
-    elif agg_method == "count":
-        agg_func = np.count_nonzero
+
 
     result = df[col_name].agg(agg_func)
     return str(result.item() if hasattr(result, "item") else result)
